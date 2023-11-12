@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package todo_package;
+
+message Todo {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  bool completed = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreateTodoRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateTodoResponse {
+  int32 status_code = 1;
+  string message = 2;
+  Todo data = 3;
+}
+
+message UpdateTodoRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string description = 3;
+  optional bool completed = 4;
+}
+
+message UpdateTodoResponse {
+  int32 status_code = 1;
+  string message = 2;
+  optional Todo data = 3;
+}
+
+message DeleteTodoRequest {
+  string id = 1;
+}
+
+message DeleteTodoResponse {
+  int32 status_code = 1;
+  string message = 2;
+}
+
+message GetTodoByIdRequest {
+  string id = 1;
+}
+
+message GetTodoByIdResponse {
+  int32 status_code = 1;
+  string message = 2;
+  optional Todo data = 3;
+}
+
+message GetTodoByCompletedRequest {
+  bool completed = 1;
+}
+
+message GetTodoByCompletedResponse {
+  int32 status_code = 1;
+  string message = 2;
+  repeated Todo data = 3;
+}
+
+message GetTodoPaginatedRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message GetTodoPaginatedResponse {
+  int32 status_code = 1;
+  string message = 2;
+  repeated Todo data = 3;
+}
+
+service TodoService {
+  rpc Create(CreateTodoRequest) returns (CreateTodoResponse);
+
+  rpc Update(UpdateTodoRequest) returns (UpdateTodoResponse);
+
+  rpc Delete(DeleteTodoRequest) returns (DeleteTodoResponse);
+
+  rpc GetById(GetTodoByIdRequest) returns (GetTodoByIdResponse);
+
+  rpc GetByCompleted(GetTodoByCompletedRequest) returns (GetTodoByCompletedResponse);
+
+  rpc GetPaginated(GetTodoPaginatedRequest) returns (GetTodoPaginatedResponse);
+}

@@ -1,0 +1,10 @@
+[workspace]
+
+members = [
+  "packages/api",
+  "packages/config",
+  "packages/common",
+  "packages/core",
+  "packages/repository",
+  "packages/schema_grpc",
+]
